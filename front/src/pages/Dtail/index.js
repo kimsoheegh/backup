@@ -7,6 +7,7 @@ import HeaderInfo from 'components/DetailProduct/ProductInfoRight/HeaderInfo';
 import ProductInfo from 'components/DetailProduct/ProductInfo';
 
 const dummyProduct = {
+	ProductId: 2340021,
 	BigCategoryName: '상의',
 	SmallCategoryName: '반소매 티셔츠',
 	productTitle: ' [패키지] 핀스 오버핏 카라 반팔티 2PACK YHST2354',

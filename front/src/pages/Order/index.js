@@ -1,8 +1,4 @@
 import Payment from 'components/Order/Payment';
-import Refund from 'components/Order/Refund';
-
-import { BrowserRouter, Routes, Redirect, Route } from 'react-router-dom';
-import loadable from '@loadable/component';
 
 import {
 	ButtonWrapper,
@@ -16,7 +12,7 @@ import {
 	X,
 } from './styles';
 import { useState, useCallback, useRef } from 'react';
-import { useBlockLayout } from 'react-table';
+import { UseproductState } from 'context/UserContext';
 const dummyUser = {
 	userName: '김소희',
 };
@@ -31,8 +27,6 @@ const dummyPaymentInfo = {
 };
 
 const Order = props => {
-	// return <Refund dummyPaymentInfo={dummyPaymentInfo} />;
-	// return <Payment dummyUser={dummyUser} />;
 
 	const paymentWay = ['신용카드', '가상계좌(무통장)', '카카오페이', '페이코'];
 
@@ -41,6 +35,8 @@ const Order = props => {
 	const [refundAccountChecked, setRefundAccountChecked] = useState(false);
 	const [submit, setSubmit] = useState(false);
 	const refundAccount = useRef();
+
+  const product = UseproductState();
 
 	const toggleActive = useCallback(
 		e => {
@@ -115,9 +111,11 @@ const Order = props => {
 									<option>수협</option>
 									<option>우체국</option>
 								</select>
-								<RefundHolder>김소희</RefundHolder>
+								<RefundHolder>{product.name}</RefundHolder>
+								{/* <RefundHolder>김소희</RefundHolder> */}
 								<p>
-									가상 계좌 유효 기간 <span>2022년 08년 13일 23시 29분 59초</span>
+									{/* 가상 계좌 유효 기간 <span>2022년 08년 13일 23시 29분 59초</span> */}
+                  가상 계좌 유효 기간 <span>{product.date.getMonth()+1}월 {product.date.getDate()}일 23시 29분 59초</span>
 								</p>
 							</div>
 						) : (
@@ -179,7 +177,8 @@ const Order = props => {
 				</InfoWrapper>
 			</OrderContainer>
 			<OrderButton agreement={agreementChecked} onClick={AccoutSubmitCheck}>
-				{props.price} 결제하기
+				{/* {props.price} 결제하기 */}
+        {product.price}결제하기
 			</OrderButton>
 			{submit == true ? (
 				<Payment submit={submit} price={props.price} pay_method={btnActive} />
