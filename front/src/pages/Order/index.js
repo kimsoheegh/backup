@@ -12,7 +12,7 @@ import {
 	X,
 } from './styles';
 import { useState, useCallback, useRef } from 'react';
-import { UseproductState } from 'context/UserContext';
+import { useProductState } from 'context/UserContext';
 const dummyUser = {
 	userName: '김소희',
 };
@@ -36,7 +36,7 @@ const Order = props => {
 	const [submit, setSubmit] = useState(false);
 	const refundAccount = useRef();
 
-  const product = UseproductState();
+  const product = useProductState();
 
 	const toggleActive = useCallback(
 		e => {
@@ -61,7 +61,6 @@ const Order = props => {
 			agreementChecked ? setSubmit(true) : <></>;
 		}
 	};
-
 	return (
 		<div>
 			<X onClick={() => props.openModal(false)}>X</X>
@@ -177,8 +176,8 @@ const Order = props => {
 				</InfoWrapper>
 			</OrderContainer>
 			<OrderButton agreement={agreementChecked} onClick={AccoutSubmitCheck}>
-				{/* {props.price} 결제하기 */}
-        {product.price}결제하기
+				{/* {product.price} 결제하기 */}
+        {props.price}결제하기
 			</OrderButton>
 			{submit == true ? (
 				<Payment submit={submit} price={props.price} pay_method={btnActive} />

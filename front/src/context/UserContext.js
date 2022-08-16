@@ -11,12 +11,11 @@ const initialProduct = {
   id : 0,
   name : '',
   date : '',
-  // user : user.name
-}
+};
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
-export const PAYMENT = 'PAYLOAD';
+export const PAYMENT = 'PAYMENT';
 export const REFUND = 'REFUND';
 
 function userReducer(state, action) {
@@ -36,7 +35,7 @@ function userReducer(state, action) {
 }
 
 function productReducer(state, action) {
-	switch(action.type){
+	switch(action.type) {
 		case PAYMENT:
 			return{
 				...state,
@@ -44,17 +43,12 @@ function productReducer(state, action) {
         id : action.payment_data.id,
         name : action.payment_data.name,
         date : action.payment_data.date,
+        // user : action.payment_data.user
 			};
-		case REFUND:
-      return{
-        ...state,
-      };
-
-    // case REMOVE : 장바구니에서 상품을 삭제함
 
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
-	}
+	};
 }
 
 const UserStateContext = createContext();
@@ -78,7 +72,7 @@ export function ProductProvider({children}) {
     <ProductStateContext.Provider value={state}>
       <ProductDispatchContext.Provider value={dispatch}>{children}</ProductDispatchContext.Provider>
     </ProductStateContext.Provider>
-  )
+  );
 }
 
 export function useUserState() {
@@ -86,13 +80,15 @@ export function useUserState() {
 }
 
 export function useUserDispatch() {
+  console.log((' 왔다 ㅇㅇ'));
 	return useContext(UserDispatchContext);
 }
 
-export function UseproductState() {
-  return useContext(ProductStateContext);
+export function useProductState() {
+	return useContext(ProductStateContext);
 }
 
-export function UseproductDispatch() {
-  return useContext(ProductDispatchContext);
+export function useProductDispatch() {
+  console.log(('여기까지 왔다 ㅇㅇ'));
+	return useContext(ProductDispatchContext);
 }

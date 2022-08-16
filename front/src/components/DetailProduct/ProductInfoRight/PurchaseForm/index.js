@@ -18,8 +18,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import Modal from 'react-modal';
 import Order from 'pages/Order';
-
-import { PAYMENT, UseproductState, UseproductDispatch, useUserState } from 'context/UserContext';
+import { PAYMENT, useProductDispatch, useUserState } from 'context/UserContext';
 
 const ModalStyle = {
 	overlay: {
@@ -43,6 +42,7 @@ const ModalStyle = {
 };
 
 const PurchaseForm = ({ data }) => {
+
 	const [size, setSize] = useState('옵션 선택');
 	const [color, setColor] = useState('옵션 선택');
 	const [selected, setSelected] = useState(false);
@@ -53,11 +53,11 @@ const PurchaseForm = ({ data }) => {
 
   const navigate = useNavigate();
 
-  const dispatch = UseproductDispatch();
+  const dispatch = useProductDispatch();
   const user = useUserState();
-  const product = UseproductState();
 
 	const SelectForm = ({ price, size, color }) => {
+
 		const onIncrease = () => {
 			setOrderAmount(orderAmount + 1);
 			setSelectedPrice(selectedPrice + price);
@@ -121,23 +121,25 @@ const PurchaseForm = ({ data }) => {
 	}, [clickedlike]);
 
 	const openModal = () => {
-    // 로그인 유무. 
-    user.login =true;
-    if(!user.login){
-      alert("로그인 후 구매가 가능합니다.")
-      navigate("/login");
-    } else {
-      setShowModal(showModal => !showModal);
+	  setShowModal(showModal => !showModal);
+    ajdfkasjld();
+	};
+
+  const ajdfkasjld = useCallback(() => {
+    // if(!user.login){
+    //   alert("로그인 후 구매가 가능합니다.")
+    //   navigate("/login");
+    // } else {
       const payment_data = {
         price : selectedPrice + data.productPrice,
         id : data.ProductId,
         name : data.productTitle,
         date : new Date(),
-        // user : user.name
       }
-      dispatch({type : PAYMENT, payment_data});
-    }
-	};
+		  dispatch({ payment_data, type: PAYMENT });
+      console.log(payment_data.price)
+    // }
+  }, [showModal]);
 
 	return (
 		<div>
